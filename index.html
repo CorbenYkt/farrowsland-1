@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang=en xmlns=http://www.w3.org/1999/xhtml>
+
+<head>
+    <title>Simple Multiple Urls Opener</title>
+    <meta charset=utf-8>
+    <meta content="width=device-width,initial-scale=1" name=viewport>
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src=./jquery-3.6.3.min.js></script>
+    <link href=./css/bootstrap.min.css rel=stylesheet>
+</head>
+
+<body>
+    <script>
+        function openurls() {
+            var text = $('#textID').val();
+            if (text) {
+                let urls = text.replace(/\n/g, ",").replace(/ /g, ',').split(',');
+                urls.forEach((url) => {
+                    if (url.length != 0) {
+                        if (url.indexOf("http") >= 0) {
+
+                        } else {
+                            url = "http://" + url;
+                        }
+                        window.open(url, '_blank');
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            $("#openUrls").click(function () {
+                openurls();
+            });
+
+            $("#resetUrls").click(function () {
+                $('#textID').val('');
+                $('#textID').focus();
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.ctrlKey && e.keyCode == 13) {
+                    openurls();
+                }
+            });
+        });
+
+
+    </script>
+    <div class=container>
+        <h1 class=title>Simple Multiple Urls Opener</h1>
+        <p class=lead>Enter urls, one per <strong>line</strong> or separated by <strong>commas</strong> or separated by
+            <strong>space</strong> in the below text area. It will open all the given URLs in just a click.
+            <textarea id="textID" autofocus class='form-control'
+                placeholder="Paste/Enter urls separated by commas, new line or space." cols=5 rows=10
+                spellcheck='false'></textarea>
+            <br>
+        <div>
+            <button class="btn btn-primary" id=openUrls title="Press Ctrl+Enter as shortcut" type=button>Open all
+                <small>[Ctrl+Enter]</small></button>&nbsp;<button class="btn btn-primary" id='resetUrls'
+                title="Press Ctrl+R as shortcut" type=reset>Reset <small>[Ctrl+R]</small></button>
+        </div>
+        <br>
+    </div>
+</body>
+
+</html>
